@@ -11,11 +11,13 @@ export function MenuView() {
   const [category, setCategory] = useState<Category | 'all'>('all')
   const [search, setSearch] = useState('')
   const [addedId, setAddedId] = useState<string | null>(null)
+  const [vegetarianOnly, setVegetarianOnly] = useState(false)
 
   const filtered = MENU_ITEMS.filter(item => {
     const matchCat = category === 'all' || item.category === category
     const matchSearch = !search || item.name.toLowerCase().includes(search.toLowerCase())
-    return matchCat && matchSearch
+    const matchVeg = !vegetarianOnly || item.vegetarian
+    return matchCat && matchSearch && matchVeg
   })
 
   const popular = MENU_ITEMS.filter(i => i.popular)
@@ -41,6 +43,18 @@ export function MenuView() {
           value={search}
           onChange={e => setSearch(e.target.value)}
         />
+      </div>
+
+      <div className="veg-filter">
+        <span className="veg-filter__label">Vegetarian Only</span>
+        <button
+          type="button"
+          className={`veg-filter__switch ${vegetarianOnly ? 'veg-filter__switch--active' : ''}`}
+          onClick={() => setVegetarianOnly(!vegetarianOnly)}
+          aria-label="Toggle vegetarian filter"
+        >
+          <span className="veg-filter__slider" />
+        </button>
       </div>
 
       {!search && category === 'all' && (
@@ -77,7 +91,9 @@ export function MenuView() {
             <div className="menu-card__body">
               <div className="menu-card__top">
                 <h3>{item.name}</h3>
-                {item.vegetarian && <span className="veg-badge">V</span>}
+                <span className={`diet-indicator ${item.vegetarian ? 'diet-indicator--veg' : 'diet-indicator--nonveg'}`} title={item.vegetarian ? 'Vegetarian' : 'Non-Vegetarian'}>
+                  <span className="diet-indicator__circle" />
+                </span>
               </div>
               <p className="menu-card__desc">{item.description}</p>
               <div className="menu-card__meta">

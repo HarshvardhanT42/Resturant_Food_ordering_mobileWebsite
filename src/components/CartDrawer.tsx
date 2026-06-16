@@ -17,14 +17,14 @@ export function CartDrawer() {
     <div className="drawer-overlay" onClick={() => setShowCart(false)}>
       <div className="drawer" onClick={e => e.stopPropagation()}>
         <div className="drawer__header">
-          <h2>Your Cart</h2>
-          <button className="drawer__close" onClick={() => setShowCart(false)} aria-label="Close cart">×</button>
+          <h2>Your Dishes</h2>
+          <button className="drawer__close" onClick={() => setShowCart(false)} aria-label="Close dishes">×</button>
         </div>
 
         {cart.length === 0 ? (
           <div className="drawer__empty">
             <span className="drawer__empty-icon">🛒</span>
-            <p>Your cart is empty</p>
+            <p>You haven't added any dishes yet</p>
             <button className="btn btn--secondary" onClick={() => setShowCart(false)}>
               Browse Menu
             </button>
