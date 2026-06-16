@@ -1,23 +1,23 @@
 :root {
-  --bg: #FAF8F5;
-  --bg-card: #FFFFFF;
-  --bg-elevated: #F5EFEB;
-  --bg-input: #FFFFFF;
-  --gold: #C85C2A;
-  --gold-light: #F7EBE1;
-  --gold-dark: #8D3610;
-  --text: #2B2520;
-  --text-muted: #756A60;
-  --text-dim: #A89F95;
-  --accent: #C85C2A;
-  --success: #2E7D32;
-  --warning: #E65100;
-  --danger: #C62828;
-  --border: rgba(200, 92, 42, 0.12);
+  --bg: #0b0c10;
+  --bg-card: #15181f;
+  --bg-elevated: #1f232b;
+  --bg-input: #1a1d24;
+  --gold: #dfb76c;
+  --gold-light: #f3e1be;
+  --gold-dark: #aa8443;
+  --text: #f5f4f0;
+  --text-muted: #a4a7b0;
+  --text-dim: #6c707a;
+  --accent: #b22222;
+  --success: #2ec4b6;
+  --warning: #ff9f1c;
+  --danger: #e71d36;
+  --border: rgba(201, 169, 98, 0.15);
   --radius: 14px;
   --radius-sm: 10px;
   --radius-lg: 20px;
-  --shadow: 0 6px 20px rgba(43, 37, 32, 0.05);
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'DM Sans', system-ui, sans-serif;
   --nav-height: 72px;
@@ -78,7 +78,7 @@ input {
 
 .btn--primary {
   background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-  color: #ffffff;
+  color: #0f1419;
 }
 
 .btn--primary:active {
@@ -493,7 +493,7 @@ input {
 
 .pill--active {
   background: var(--gold);
-  color: #ffffff;
+  color: #0f1419;
   border-color: var(--gold);
 }
 
@@ -569,7 +569,7 @@ input {
   color: var(--text-muted);
   margin-top: 2px;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  /*-webkit-line-clamp: 2;*/
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -1135,7 +1135,7 @@ input {
 
 .tip-btn--active {
   background: var(--gold);
-  color: #ffffff;
+  color: #0f1419;
   border-color: var(--gold);
 }
 
@@ -1220,7 +1220,7 @@ input {
   font-family: var(--font-display);
   font-size: 28px;
   font-weight: 700;
-  color: #ffffff;
+  color: #0f1419;
 }
 
 .profile-card h2 {
@@ -1329,71 +1329,57 @@ input {
 /* ── Desktop centering ── */
 @media (min-width: 481px) {
   body {
-    background: #ECE6DF;
+    background: #080b0f;
   }
 
   .app, .bottom-nav {
-    box-shadow: 0 0 40px rgba(43, 37, 32, 0.08);
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
   }
 }
 
-/* Veg Filter Toggle Switch */
+/* Veg Filter Segmented Control */
 .veg-filter {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 12px 16px;
+  gap: 8px;
   margin-bottom: 16px;
 }
 
-.veg-filter__label {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text);
+.veg-filter__btn {
+  flex: 1;
   display: flex;
   align-items: center;
-  gap: 8px;
-}
-
-.veg-filter__label::before {
-  content: '';
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: var(--success);
-}
-
-.veg-filter__switch {
-  width: 44px;
-  height: 24px;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 600;
   background: var(--bg-elevated);
-  border-radius: 12px;
-  position: relative;
-  transition: background-color 0.2s;
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
-.veg-filter__switch--active {
-  background-color: var(--success);
-  border-color: var(--success);
+.veg-filter__btn:active {
+  transform: scale(0.96);
 }
 
-.veg-filter__slider {
-  width: 18px;
-  height: 18px;
-  background: white;
-  border-radius: 50%;
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  transition: transform 0.2s;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+.veg-filter__btn--all.veg-filter__btn--active {
+  background: var(--bg-card);
+  border-color: var(--gold);
+  color: var(--text);
+  box-shadow: 0 0 0 1px var(--gold);
 }
 
-.veg-filter__switch--active .veg-filter__slider {
-  transform: translateX(20px);
+.veg-filter__btn--veg.veg-filter__btn--active {
+  background: rgba(62, 207, 142, 0.1);
+  border-color: #3ecf8e;
+  color: #3ecf8e;
+}
+
+.veg-filter__btn--nonveg.veg-filter__btn--active {
+  background: rgba(255, 107, 107, 0.1);
+  border-color: #ff6b6b;
+  color: #ff6b6b;
 }

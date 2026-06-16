@@ -11,12 +11,15 @@ export function MenuView() {
   const [category, setCategory] = useState<Category | 'all'>('all')
   const [search, setSearch] = useState('')
   const [addedId, setAddedId] = useState<string | null>(null)
-  const [vegetarianOnly, setVegetarianOnly] = useState(false)
+  const [vegetarianOnly, setVegetarianOnly] = useState<'all' | 'veg' | 'nonveg'>('all')
 
   const filtered = MENU_ITEMS.filter(item => {
     const matchCat = category === 'all' || item.category === category
     const matchSearch = !search || item.name.toLowerCase().includes(search.toLowerCase())
-    const matchVeg = !vegetarianOnly || item.vegetarian
+    const matchVeg =
+      vegetarianOnly === 'all' ||
+      (vegetarianOnly === 'veg' && item.vegetarian) ||
+      (vegetarianOnly === 'nonveg' && !item.vegetarian)
     return matchCat && matchSearch && matchVeg
   })
 
@@ -45,15 +48,34 @@ export function MenuView() {
         />
       </div>
 
+      {/* Veg / Non-Veg Segmented Filter */}
       <div className="veg-filter">
-        <span className="veg-filter__label">Vegetarian Only</span>
         <button
           type="button"
-          className={`veg-filter__switch ${vegetarianOnly ? 'veg-filter__switch--active' : ''}`}
-          onClick={() => setVegetarianOnly(!vegetarianOnly)}
-          aria-label="Toggle vegetarian filter"
+          className={`veg-filter__btn veg-filter__btn--all ${vegetarianOnly === 'all' ? 'veg-filter__btn--active' : ''}`}
+          onClick={() => setVegetarianOnly('all')}
         >
-          <span className="veg-filter__slider" />
+          ALL
+        </button>
+        <button
+          type="button"
+          className={`veg-filter__btn veg-filter__btn--veg ${vegetarianOnly === 'veg' ? 'veg-filter__btn--active' : ''}`}
+          onClick={() => setVegetarianOnly('veg')}
+        >
+          Veg
+          <span className="diet-indicator diet-indicator--veg">
+            <span className="diet-indicator__circle" />
+          </span>
+        </button>
+        <button
+          type="button"
+          className={`veg-filter__btn veg-filter__btn--nonveg ${vegetarianOnly === 'nonveg' ? 'veg-filter__btn--active' : ''}`}
+          onClick={() => setVegetarianOnly('nonveg')}
+        >
+          Non-Veg
+          <span className="diet-indicator diet-indicator--nonveg">
+            <span className="diet-indicator__circle" />
+          </span>
         </button>
       </div>
 
